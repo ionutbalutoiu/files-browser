@@ -8,8 +8,10 @@ services:
     volumes:
       # Files
       - ./files:/storage/files
+      - ./files-public:/storage/files-public
     environment:
       - FILES_SVC_UPLOAD_BASE_DIR=/storage/files
+      - FILES_SVC_PUBLIC_BASE_DIR=/storage/files-public
     networks:
       - files-browser-net
 
@@ -28,6 +30,7 @@ services:
       - ./nginx-conf.d:/etc/nginx/conf.d
       # Files
       - ./files:/storage/files
+      - ./files-public:/storage/files-public
     networks:
       - files-browser-net
 
