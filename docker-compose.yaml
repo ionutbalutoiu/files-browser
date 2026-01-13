@@ -1,0 +1,36 @@
+services:
+  backend:
+    image: files-browser-backend:latest
+    container_name: files-backend
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    volumes:
+      # Files
+      - ./files:/storage/files
+    environment:
+      - FILES_SVC_UPLOAD_BASE_DIR=/storage/files
+    networks:
+      - files-browser-net
+
+  frontend:
+    image: nginx:stable
+    container_name: files-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "3000:3000"
+    volumes:
+      # Static frontend build output
+      - ./frontend-dist/:/storage/dist
+      # Nginx config
+      - ./nginx-conf.d:/etc/nginx/conf.d
+      # Files
+      - ./files:/storage/files
+    networks:
+      - files-browser-net
+
+networks:
+  files-browser-net:
+    driver: bridge
