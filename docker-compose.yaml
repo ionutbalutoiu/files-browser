@@ -10,7 +10,7 @@ services:
       - ./files:/storage/files
       - ./files-public:/storage/files-public
     environment:
-      - FILES_SVC_UPLOAD_BASE_DIR=/storage/files
+      - FILES_SVC_BASE_DIR=/storage/files
       - FILES_SVC_PUBLIC_BASE_DIR=/storage/files-public
     networks:
       - files-browser-net
