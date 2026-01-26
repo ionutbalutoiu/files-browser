@@ -2,6 +2,11 @@
 
 A simple file browser stack with backend and frontend services.
 
+## 🧩 Components
+
+- [files-browser-frontend](https://github.com/ionutbalutoiu/files-browser-frontend.git)
+- [files-browser-backend](https://github.com/ionutbalutoiu/files-browser-backend.git)
+
 ## 🚀 Quick Start
 
 Start the stack:
@@ -27,7 +32,6 @@ Stop and remove the containers:
 
 ## 📂 File Storage
 
-Place your files in:
-
 - `./files` - Private files
-- `./files-public` - Publicly accessible files
+- `./files-public` - Contains symlinks for publicly exposed files
+
