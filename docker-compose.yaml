@@ -34,7 +34,7 @@ services:
       INTERNAL_API_BASE_PATH: http://files-backend:8080
       PUBLIC_LISTEN: "3010"
       PUBLIC_SERVER_NAME: "_"
-      PUBLIC_FILES_LOCATION: /public
+      PUBLIC_BASE_URL: http://localhost:3010
     networks:
       - files-browser-net
 
