@@ -1,6 +1,6 @@
 services:
   backend:
-    image: files-browser-backend:latest
+    image: ghcr.io/ionutbalutoiu/files-browser-backend:${BACKEND_IMAGE_TAG:-latest}
     container_name: files-backend
     restart: unless-stopped
     ports:
@@ -10,27 +10,31 @@ services:
       - ./files:/storage/files
       - ./files-public:/storage/files-public
     environment:
-      - FILES_SVC_BASE_DIR=/storage/files
-      - FILES_SVC_PUBLIC_BASE_DIR=/storage/files-public
+      FILES_SVC_BASE_DIR: /storage/files
+      FILES_SVC_PUBLIC_BASE_DIR: /storage/files-public
     networks:
       - files-browser-net
 
   frontend:
-    image: nginx:stable
+    image: ghcr.io/ionutbalutoiu/files-browser-frontend:${FRONTEND_IMAGE_TAG:-latest}
     container_name: files-frontend
     restart: unless-stopped
     depends_on:
       - backend
     ports:
       - "3000:3000"
+      - "3010:3010"
     volumes:
-      # Static frontend build output
-      - ./frontend-dist/:/storage/dist
-      # Nginx config
-      - ./nginx-conf.d:/etc/nginx/conf.d
       # Files
       - ./files:/storage/files
       - ./files-public:/storage/files-public
+    environment:
+      INTERNAL_LISTEN: "3000"
+      INTERNAL_SERVER_NAME: "_"
+      INTERNAL_API_BASE_PATH: http://files-backend:8080
+      PUBLIC_LISTEN: "3010"
+      PUBLIC_SERVER_NAME: "_"
+      PUBLIC_FILES_LOCATION: /public
     networks:
       - files-browser-net
 
