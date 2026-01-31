@@ -38,6 +38,29 @@ services:
     networks:
       - files-browser-net
 
+  frontend-react:
+    image: ghcr.io/ionutbalutoiu/files-browser-frontend-react:${FRONTEND_REACT_IMAGE_TAG:-latest}
+    container_name: files-frontend-react
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "4000:4000"
+      - "4010:4010"
+    volumes:
+      # Files
+      - ./files:/storage/files
+      - ./files-public:/storage/files-public
+    environment:
+      INTERNAL_LISTEN: "4000"
+      INTERNAL_SERVER_NAME: "_"
+      INTERNAL_API_BASE_PATH: http://files-backend:8080
+      PUBLIC_LISTEN: "4010"
+      PUBLIC_SERVER_NAME: "_"
+      PUBLIC_BASE_URL: http://localhost:4010
+    networks:
+      - files-browser-net
+
 networks:
   files-browser-net:
     driver: bridge
