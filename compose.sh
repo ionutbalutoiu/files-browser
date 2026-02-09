@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 set -eo pipefail
 
+# renovate: datasource=github-releases depName=files-browser-backend packageName=ionutbalutoiu/files-browser-backend
 DEFAULT_FILES_BROWSER_BACKEND_VERSION="0.11.0"
+
+# renovate: datasource=github-releases depName=files-browser-frontend packageName=ionutbalutoiu/files-browser-frontend
 DEFAULT_FILES_BROWSER_FRONTEND_VERSION="0.2.0"
 
 export BACKEND_IMAGE_TAG="${BACKEND_IMAGE_TAG:-$DEFAULT_FILES_BROWSER_BACKEND_VERSION}"
